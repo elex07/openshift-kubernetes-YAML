@@ -1,0 +1,141 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  generateName: php7-1-
+  annotations:
+    k8s.v1.cni.cncf.io/networks-status: |-
+      [{
+          "name": "openshift-sdn",
+          "interface": "eth0",
+          "ips": [
+              "10.131.15.75"
+          ],
+          "default": true,
+          "dns": {}
+      }]
+    kubernetes.io/limit-ranger: >-
+      LimitRanger plugin set: cpu, memory request for container php7; cpu,
+      memory limit for container php7
+    openshift.io/deployment-config.latest-version: '1'
+    openshift.io/deployment-config.name: php7
+    openshift.io/deployment.name: php7-1
+    openshift.io/scc: restricted
+  selfLink: /api/v1/namespaces/oc/pods/php7-1-2596z
+  resourceVersion: '11766735'
+  name: php7-1-2596z
+  uid: d4fc957e-968a-11e9-8534-06a98f27bd4e
+  creationTimestamp: '2019-06-24T14:17:43Z'
+  namespace: oc
+  ownerReferences:
+    - apiVersion: v1
+      kind: ReplicationController
+      name: php7-1
+      uid: cf1ca162-968a-11e9-9412-0a5182b31fae
+      controller: true
+      blockOwnerDeletion: true
+  labels:
+    app: php7
+    deployment: php7-1
+    deploymentconfig: php7
+spec:
+  restartPolicy: Always
+  serviceAccountName: default
+  imagePullSecrets:
+    - name: default-dockercfg-k5m6r
+  priority: 0
+  schedulerName: default-scheduler
+  enableServiceLinks: true
+  terminationGracePeriodSeconds: 30
+  nodeName: ip-10-0-172-136.us-west-2.compute.internal
+  securityContext:
+    seLinuxOptions:
+      level: 's0:c214,c69'
+    fsGroup: 1045720000
+  containers:
+    - resources:
+        limits:
+          cpu: '1'
+          memory: 512Mi
+        requests:
+          cpu: 20m
+          memory: 256Mi
+      terminationMessagePath: /dev/termination-log
+      name: php7
+      securityContext:
+        capabilities:
+          drop:
+            - KILL
+            - MKNOD
+            - SETGID
+            - SETUID
+        runAsUser: 1045720000
+        procMount: Default
+      ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8443
+          protocol: TCP
+      imagePullPolicy: Always
+      volumeMounts:
+        - name: default-token-pt79s
+          readOnly: true
+          mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      terminationMessagePolicy: File
+      image: >-
+        image-registry.openshift-image-registry.svc:5000/oc/php7@sha256:1f77e9e1cb9ddb2aa364668bdc7780f9d37859b775d8b984794eba110f74cc95
+  serviceAccount: default
+  volumes:
+    - name: default-token-pt79s
+      secret:
+        secretName: default-token-pt79s
+        defaultMode: 420
+  dnsPolicy: ClusterFirst
+  tolerations:
+    - key: node.kubernetes.io/memory-pressure
+      operator: Exists
+      effect: NoSchedule
+    - key: node.kubernetes.io/not-ready
+      operator: Exists
+      effect: NoExecute
+      tolerationSeconds: 300
+    - key: node.kubernetes.io/unreachable
+      operator: Exists
+      effect: NoExecute
+      tolerationSeconds: 300
+status:
+  phase: Running
+  conditions:
+    - type: Initialized
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2019-06-24T14:17:43Z'
+    - type: Ready
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2019-06-24T14:17:57Z'
+    - type: ContainersReady
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2019-06-24T14:17:57Z'
+    - type: PodScheduled
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2019-06-24T14:17:43Z'
+  hostIP: 10.0.172.136
+  podIP: 10.131.15.75
+  startTime: '2019-06-24T14:17:43Z'
+  containerStatuses:
+    - name: php7
+      state:
+        running:
+          startedAt: '2019-06-24T14:17:57Z'
+      lastState: {}
+      ready: true
+      restartCount: 0
+      image: >-
+        image-registry.openshift-image-registry.svc:5000/oc/php7@sha256:1f77e9e1cb9ddb2aa364668bdc7780f9d37859b775d8b984794eba110f74cc95
+      imageID: >-
+        image-registry.openshift-image-registry.svc:5000/oc/php7@sha256:1f77e9e1cb9ddb2aa364668bdc7780f9d37859b775d8b984794eba110f74cc95
+      containerID: 'cri-o://78d6a197b324c1183c5cc4f11edda61615b3c7765bd4ca3bb5eb62e11998d6f6'
+  qosClass: Burstable
+
